@@ -1,7 +1,10 @@
-# # GEE Batch Download
+
+# Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
+# Date Created: 9/30/2022
+
+# This script is built to download data from GEE using a batch method.
 # This example uses PRISM data (mean temperature) over the course of 2015.
 # Data sources, assets, and dates are all interchangeable.
-
 
 # # installs and import libraries, if necessary
 !pip install eefolium
