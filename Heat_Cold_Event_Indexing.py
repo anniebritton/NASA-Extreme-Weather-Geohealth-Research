@@ -1,7 +1,7 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
 # Date Updated: 12/3/2022
 
-# This script is designed to index mean temperature data from a daily census tract-level CSV
+# This script is designed to index mean temperature data from a daily census tract-level* CSV
 # and output a CSV with 1s and 0s. Below, heat and cold events are defined as two or more days
 # at <5th percentile and >95th percentile of the tract's mean temperature, respectively. 
 # "1" indicates days on which cold/heat waves occur. The thresholds can be adjusted as necessary.
