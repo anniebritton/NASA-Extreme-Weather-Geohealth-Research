@@ -35,11 +35,11 @@ prism = ee.ImageCollection('OREGONSTATE/PRISM/AN81d').filterDate('2015-01-01','2
 
 # batch export to Google Drive
 geetools.batch.Export.imagecollection.toDrive(
-    prism, 
-    'PRISM_tmean', 
-    namePattern='PRISM_tmean_{system_date}', 
+    prism, # select the image collection
+    'PRISM_tmean', # change name of data/band as necessary
+    namePattern='PRISM_tmean_{system_date}', # change name of data/band as necessary
     datePattern = 'y-MM-dd',
-    scale=4000,
+    scale=4000, # spatial resolution of the data
     region=texas, 
     extra=None, 
     verbose=False
