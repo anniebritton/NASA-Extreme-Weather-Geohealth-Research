@@ -69,7 +69,7 @@ for n in range(1, (len(tract_id_list)+1)):
     
     i = 1
     
-    print(round(n / 5265 * 100, 2),"%", end="\r") # this prints a % of how far through the processing the script is based on the # of columns
+    print(round(n / len(tract_id_list) * 100, 2),"%", end="\r") # this prints a % of how far through the processing the script is based on the # of columns
   
     for rast in os.listdir(r'/mnt/local_drive/britton/PRISM_data/PRISM_daily_tmax'):
           if rast[-4: ] == '.tif':
