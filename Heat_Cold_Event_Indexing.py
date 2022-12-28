@@ -2,7 +2,7 @@
 # Date Updated: 12/3/2022
 
 # This script is designed to index mean temperature data from a daily census tract-level* CSV
-# and output a CSV with 1s and 0s. Below, heat and cold events are defined as two or more days
+# and output a CSV with 1s and 0s. Below, heat and cold events are defined by default as two or more days
 # at <5th percentile and >95th percentile of the tract's mean temperature, respectively. 
 # "1" indicates days on which cold/heat waves occur. The thresholds can be adjusted as necessary.
 
@@ -21,16 +21,24 @@ heat_df = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs
 heat_df['Date'] = pd.to_datetime(heat_df['Date'])
 heat_df.set_index('Date', inplace=True)
 
-# calculate heat events
-col_list = heat_df.columns
-df_lead = heat_df.shift(1) # set up the leading column to compare to day ahead
-df_lag = heat_df.shift(-1) # set up the lagging column to compare to day behind
+# function for heatwaves with the default percentile set at 95%
+def heatwaves(df, perc = 95):
+    
+    # set up the lead and lag columns
+    col_list = df.columns
+    df_lead = df.shift(1)
+    df_lag = df.shift(-1)
 
-for n in range(0, (len(col_list))):
-    threshold = np.percentile(heat_df.iloc[:,n], 95) #setting the 95th percentile threshold
-    heat_df.iloc[:,n] = np.where(
-       ((heat_df.iloc[:,n] >= threshold) & ((df_lag.iloc[:,n] >= threshold) | (df_lead.iloc[:,n] >= threshold))), 1, 0
-    )
+    # loop through the columns based on the selected threshold, 
+    # comparing each day to the day before and after
+    for n in range(0, (len(col_list))):
+        threshold = np.percentile(df.iloc[:,n], perc)
+        df.iloc[:,n] = np.where(
+           ((df.iloc[:,n] >= threshold) & ((df_lag.iloc[:,n] >= threshold) | (df_lead.iloc[:,n] >= threshold))), 1, 0
+        )
+
+# run the heatwaves function
+heatwaves(heat_df)
 
 heat_df.sum() # check of column summations to see how many days of heat events over the study period
 
@@ -45,17 +53,25 @@ cold_df = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs
 cold_df['Date'] = pd.to_datetime(cold_df['Date'])
 cold_df.set_index('Date', inplace=True)
 
-# calculate cold events
-col_list = cold_df.columns
-df_lead = cold_df.shift(1) # set up the leading column to compare to day ahead
-df_lag = cold_df.shift(-1) # set up the lagging column to compare to day 
+# function for cold snaps with the default percentile set at 95%
+def coldsnaps(df, perc = 5):
+    
+    # set up the lead and lag columns
+    col_list = df.columns
+    df_lead = df.shift(1)
+    df_lag = df.shift(-1)
 
-for n in range(0, (len(col_list))):
-    threshold = np.percentile(cold_df.iloc[:,n], 5) #setting the 5th percentile threshold
-    cold_df.iloc[:,n] = np.where(
-       ((cold_df.iloc[:,n] <= threshold) & ((df_lag.iloc[:,n] <= threshold) | (df_lead.iloc[:,n] <= threshold))), 1, 0
+    # loop through the columns based on the selected threshold, 
+    # comparing each day to the day before and after
+    for n in range(0, (len(col_list))):
+        threshold = np.percentile(df.iloc[:,n], perc)
+        df.iloc[:,n] = np.where(
+           ((df.iloc[:,n] <= threshold) & ((df_lag.iloc[:,n] <= threshold) | (df_lead.iloc[:,n] <= threshold))), 1, 0
     )
-
+        
+# run the coldsnaps function
+coldsnaps(cold_df)
+    
 cold_df.sum() # check of column summations to see how many days of heat events over the study period
 
 # export cold events
