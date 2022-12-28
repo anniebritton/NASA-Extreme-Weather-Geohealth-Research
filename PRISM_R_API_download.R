@@ -1,5 +1,4 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
-# Date Updated: 12/3/2022
 
 # This script is built to download PRISM daily maximum temperature (°C)
 # data, clip it to the extent of Texas, and convert .bils to tifs. 
