@@ -100,8 +100,5 @@ data_frame['Date'] = pd.to_datetime(data_frame['Date'], infer_datetime_format = 
 data_frame = data_frame.sort_values(by = 'Date')
 data_frame = data_frame.set_index('Date')  
 
-# print to check the data_frame before export
-data_frame
-
 # export the dataframe to CSV
 data_frame.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_daily_tmax.csv')
