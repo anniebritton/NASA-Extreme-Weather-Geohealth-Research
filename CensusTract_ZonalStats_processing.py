@@ -97,7 +97,6 @@ data_frame = data_map
 
 # convert the dates to a readable date time format and sort by date
 data_frame['Date'] = pd.to_datetime(data_frame['Date'], infer_datetime_format = True)
-data_frame['Date'] = data_frame['Date'].dt.date
 data_frame = data_frame.sort_values(by = 'Date')
 
 # print to check the data_frame before export
