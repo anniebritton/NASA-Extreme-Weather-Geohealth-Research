@@ -1,5 +1,4 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
-# Date Updated: 12/3/2022
 
 # This script is built to download data from GEE using a batch method.
 # This example uses PRISM data (mean temperature) over the course of 2015.
