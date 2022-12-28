@@ -1,5 +1,4 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
-# Date Updated: 12/3/2022
 
 # This script is built to take in a census tract shapefile and daily .tif data for a study period,
 # produce an empty dataframe "map," and perform zonal statistics for each census tract GEOID area,
