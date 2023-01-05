@@ -18,7 +18,7 @@ cold_df = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs
 cold_df['Date'] = pd.to_datetime(cold_df['Date'])
 cold_df.set_index('Date', inplace=True)
 
-# function for cold snaps with the default percentile set at 95%
+# function for cold snaps with the default percentile set at 5%
 def coldsnaps(df, perc = 5):
     
     # set up the lead and lag columns
