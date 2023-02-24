@@ -40,7 +40,7 @@ org_dir = "~/Documents/Research/Data/prism_daily_tmax/" # MAKE SURE TO CHANGE FI
 # You can change the date range and variable type as necessary below
 get_prism_dailys(
   type = "tmax",
-  minDate = "2016-01-01",
+  minDate = "2015-01-01",
   maxDate = "2022-09-15",
   keepZip = FALSE
 )
