@@ -1,6 +1,7 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
 
-# This script is built to download data from GEE using a batch method.
+# This script is written to download data from Google Earth Engine using a batch method.
+# Users must have a Google Earth Engine account set up.
 # This example uses PRISM data (mean temperature) over the course of 2015.
 # Data sources, assets, and dates are all interchangeable.
 
