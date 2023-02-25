@@ -29,6 +29,10 @@ except Exception as e:
 # in this case, we have uploaded a shapefile named "Texas" as an asset in GEE
 texas = ee.FeatureCollection("projects/ee-annieelizbritton/assets/Texas")
 
+# However, you can also import and create a variable for the shapefile like so:
+# AOI_path = '/mnt/local_drive/britton/TX_census_tracts/tl_2019_48_tract.shp'
+# texas = geemap.shp_to_ee(AOI_path)
+
 # import PRISM data as an image collection
 prism = ee.ImageCollection('OREGONSTATE/PRISM/AN81d').filterDate('2015-01-01','2016-01-01').filterBounds(texas).select('tmean')
 
