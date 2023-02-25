@@ -1,5 +1,9 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
 
+### NOTE: This script is now deprecated. 
+### Refer to https://github.com/anniebritton/NASA-Extreme-Weather-Geohealth-Research/blob/main/exact_extractr_prism.R
+### for an updated, faster, more accurate method of extracting zonal statistics for timeseries data across multi-part features.
+
 # This script is built to take in a census tract shapefile and daily .tif data for a study period,
 # produce an empty dataframe "map," and perform zonal statistics for each census tract GEOID area,
 # inputting each daily, tract-level value into the empty data frame.
