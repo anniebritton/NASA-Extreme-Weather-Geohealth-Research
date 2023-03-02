@@ -7,16 +7,11 @@
 
 # installs and import libraries, if necessary
 !pip install eefolium
-!pip install pyshp # this is for importing the shapefile
-!pip install geopandas # this is for importing the shapefile
 !pip install geetools
 
 import ee
 import folium
 import geetools
-import pandas as pd
-import geopandas
-import json
 
 # this will initialise ee, and you may need to copy and paste the authentication code
 try:
