@@ -105,7 +105,7 @@ def detailed_risk(df):
 # run the function across the mean HI data
 detailed_df = detailed_risk(hi_df)
 
-# check the head of the data
+# check the tail of the data
 detailed_df.tail()
 
 # Export heat events
