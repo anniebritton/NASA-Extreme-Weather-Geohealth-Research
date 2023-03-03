@@ -19,25 +19,23 @@ cold_df['Date'] = pd.to_datetime(cold_df['Date'])
 cold_df.set_index('Date', inplace=True)
 
 # function for cold snaps with the default percentile set at 5%
-def coldsnaps(df, perc = 5):
+def coldwaves(df, perc=5):
     
-    # set up the lead and lag columns
-    col_list = df.columns
     df_lead = df.shift(1)
     df_lag = df.shift(-1)
 
-    # loop through the columns based on the selected threshold, 
-    # comparing each day to the day before and after
-    for n in range(0, (len(col_list))):
-        threshold = np.percentile(df.iloc[:,n], perc)
-        df.iloc[:,n] = np.where(
-           ((df.iloc[:,n] <= threshold) & ((df_lag.iloc[:,n] <= threshold) | (df_lead.iloc[:,n] <= threshold))), 1, 0
-    )
+    def apply_threshold(col):
+        threshold = np.percentile(col, perc)
+        return np.where((col <= threshold) & ((df_lag[col.name] <= threshold) | (df_lead[col.name] <= threshold)), 1, 0)
+        
+    binary_df = df.apply(apply_threshold)
+    
+    return binary_df
         
 # run the coldsnaps function
-coldsnaps(cold_df)
+coldwave_df = coldwaves(cold_df)
     
-cold_df.sum() # check of column summations to see how many days of heat events over the study period
+coldwave_df.sum() # check of column summations to see how many days of heat events over the study period
 
 # export cold events
-cold_df.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_indexing/PRISM_tmean_cold_index.csv')
+coldwave_df.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_indexing/PRISM_tmean_cold_events.csv')
