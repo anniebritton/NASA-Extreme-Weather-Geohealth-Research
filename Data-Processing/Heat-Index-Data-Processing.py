@@ -1,7 +1,25 @@
+# Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
+
+# This script is designed to process raw heat index data from a daily census tract-level* CSV and output the following files:
+
+# Heat Index Event File: CSV containing daily binary data for heat index events by census tract*.
+# Heat index events are defined as two or more days at <5th percentile and >95th percentile of the tract's mean HI. 
+# "1" indicates days on which heat index events occur.
+
+# Binary Heat Index File: CSV containing daily binary data by census tract representing days with and without a heat index over the "Caution" threshold (80 degrees F) based on https://www.weather.gov/ama/heatindex.
+# "1" indicates days with a mean heat index over over the "Caution" threshold (80 degrees F)
+
+# Detailed Heat Index File: CSV containing detailed daily string data by census tract based on levels defined here: https://www.weather.gov/ama/heatindex.
+# Levels are: ['Safe', 'Caution', 'Extreme_Caution', 'Extreme_Danger']
+
+# *Column headers in the CSVs indicate tract GEOIDs to differentiate multipart tracts, where a tract may be split and
+# located in two different geographic areas. In this case, there is a unique GEOID for each part of the tract.
+# See here for more info: https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html
+
+
 # import packages
 import pandas as pd
 import numpy as np
-
 
 # Read in the raw mean heat index data from a CSV file
 hi_df = pd.read_csv("/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_raw.csv")
@@ -40,10 +58,8 @@ heatwave_df = heatwaves(hi_df)
 # check of column summations to see how many days of heat events over the study period
 heatwave_df.sum()
 
-
 # Export heat events
 hi_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_events.csv')
-
 
 
 
@@ -63,7 +79,6 @@ binary_df = binaryrisk(hi_df)
 
 # check the sums of days 80+ degrees F in the dataframe
 binary_df.sum()
-
 
 # Export heat events
 binary_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_binary_risk_days.csv')
@@ -87,13 +102,11 @@ def detailed_risk(df):
     # returning a new DataFrame with the risk categories assigned to each element
     return pd.DataFrame(np.select(conditions, choices), index=df.index, columns=df.columns)
 
-
 # run the function across the mean HI data
 detailed_df = detailed_risk(hi_df)
 
 # check the head of the data
 detailed_df.tail()
-
 
 # Export heat events
 binary_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_detailed_risk_days.csv')
