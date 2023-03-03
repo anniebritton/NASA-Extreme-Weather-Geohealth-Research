@@ -15,16 +15,19 @@
 # located in two different geographic areas. In this case, there is a unique GEOID for each part of the tract.
 # See here for more info: https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html
 
-#### Heat Events
-
 # import packages
 import pandas as pd
 import numpy as np
 
+# select the mean temperature data
+tmean_data = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs/PRISM_daily_tmean_final.csv")
+tmean_data['Date'] = pd.to_datetime(tmean_data['Date'])
+tmean_data.set_index('Date', inplace=True)
+
+####### Heat Events #######
+
 # read in csv and set index
-heat_df = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs/PRISM_daily_tmean_final.csv")
-heat_df['Date'] = pd.to_datetime(heat_df['Date'])
-heat_df.set_index('Date', inplace=True)
+heat_df = tmean_data
 
 # function for heatwaves with the default percentile set at 95%
 def heatwaves(df, perc=95):
@@ -48,12 +51,11 @@ heatwave_df.sum() # check of column summations to see how many days of heat even
 # export heat events
 heatwave_df.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_indexing/PRISM_tmean_heat_events.csv')
 
-#### Cold Events
+
+####### Cold Events #######
 
 # read in csv and set index
-cold_df = pd.read_csv("/mnt/local_drive/britton/PRISM_data/PRISM_csvs/tmean_csvs/PRISM_daily_tmean_final.csv")
-cold_df['Date'] = pd.to_datetime(cold_df['Date'])
-cold_df.set_index('Date', inplace=True)
+cold_df = tmean_data
 
 # function for cold waves with the default percentile set at 5%
 def coldwaves(df, perc=5):
