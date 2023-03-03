@@ -19,25 +19,23 @@ heat_df['Date'] = pd.to_datetime(heat_df['Date'])
 heat_df.set_index('Date', inplace=True)
 
 # function for heatwaves with the default percentile set at 95%
-def heatwaves(df, perc = 95):
+def heatwaves(df, perc=95):
     
-    # set up the lead and lag columns
-    col_list = df.columns
     df_lead = df.shift(1)
     df_lag = df.shift(-1)
 
-    # loop through the columns based on the selected threshold, 
-    # comparing each day to the day before and after
-    for n in range(0, (len(col_list))):
-        threshold = np.percentile(df.iloc[:,n], perc)
-        df.iloc[:,n] = np.where(
-           ((df.iloc[:,n] >= threshold) & ((df_lag.iloc[:,n] >= threshold) | (df_lead.iloc[:,n] >= threshold))), 1, 0
-        )
+    def apply_threshold(col):
+        threshold = np.percentile(col, perc)
+        return np.where((col >= threshold) & ((df_lag[col.name] >= threshold) | (df_lead[col.name] >= threshold)), 1, 0)
+        
+    binary_df = df.apply(apply_threshold)
+    
+    return binary_df
 
 # run the heatwaves function
-heatwaves(heat_df)
+heatwave_df = heatwaves(heat_df)
 
-heat_df.sum() # check of column summations to see how many days of heat events over the study period
+heatwave_df.sum() # check of column summations to see how many days of heat events over the study period
 
 # export heat events
-heat_df.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_indexing/PRISM_tmean_heat_index.csv')
+heatwave_df.to_csv('/mnt/local_drive/britton/PRISM_data/PRISM_indexing/PRISM_tmean_heat_events.csv')
