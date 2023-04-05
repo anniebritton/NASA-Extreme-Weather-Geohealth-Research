@@ -22,7 +22,7 @@ import pandas as pd
 import numpy as np
 
 # Read in the raw mean heat index data from a CSV file
-hi_df = pd.read_csv("/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_raw.csv")
+hi_df = pd.read_csv("/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_raw_v2.csv")
 
 # Convert the 'Date' column to a datetime format
 hi_df['Date'] = pd.to_datetime(hi_df['Date'])
@@ -59,7 +59,7 @@ heatwave_df = heatwaves(hi_df)
 heatwave_df.sum()
 
 # Export heat events
-hi_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_events.csv')
+heatwave_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_events_v2.csv')
 
 
 
@@ -81,7 +81,7 @@ binary_df = binaryrisk(hi_df)
 binary_df.sum()
 
 # Export heat events
-binary_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_binary_risk_days.csv')
+binary_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_binary_risk_days_v2.csv')
 
 
 
@@ -94,10 +94,11 @@ def detailed_risk(df):
         df < 80,
         (df >= 80) & (df < 90),
         (df >= 90) & (df < 103),
-        df >= 103
+        (df >= 103) & (df < 124),
+        df >= 124
     ]
     # Define the corresponding risk categories using a list of strings
-    choices = ['Safe', 'Caution', 'Extreme_Caution', 'Extreme_Danger']
+    choices = ['Safe', 'Caution', 'Extreme_Caution', 'Danger', 'Extreme_Danger']
     # Use np.select to apply the conditions and choices to the input DataFrame, 
     # returning a new DataFrame with the risk categories assigned to each element
     return pd.DataFrame(np.select(conditions, choices), index=df.index, columns=df.columns)
@@ -109,4 +110,4 @@ detailed_df = detailed_risk(hi_df)
 detailed_df.tail()
 
 # Export heat events
-binary_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_detailed_risk_days.csv')
+detailed_df.to_csv('/mnt/local_drive/britton/TX_temperature_events/mean_heat_index_detailed_risk_days_v2.csv')
