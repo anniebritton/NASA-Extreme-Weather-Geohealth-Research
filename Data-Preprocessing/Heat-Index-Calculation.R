@@ -52,6 +52,6 @@ head(max_hi[1:4])
 head(mean_hi[1:4])
 
 # export to csvs to keep raw data
-write.csv(mean_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/mean_heat_index.csv", row.names = FALSE)
-write.csv(max_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/max_heat_index.csv", row.names = FALSE)
-write.csv(min_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/min_heat_index.csv", row.names = FALSE)
+write.csv(mean_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/mean_heat_index.csv")
+write.csv(max_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/max_heat_index.csv")
+write.csv(min_hi, "/mnt/redwood/local_drive/britton/TX_temperature_events/min_heat_index.csv")
