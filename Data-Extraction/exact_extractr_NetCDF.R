@@ -1,7 +1,7 @@
 # Creator: Annie Britton, abritto4@jhu.edu, annie.eliz.britton@gmail.com
 
-# This script is built to take in a census tract shapefile and a NetCDF with daily data for a study period
-# and perform zonal statistics to find the mean for each zipcode/census tract in a shapefile.
+# This script is built to take in a multi-geometry shapefile and a NetCDF with daily data for a study period
+# and perform zonal statistics to find the mean for each zipcode/census tract/geometry in a shapefile.
 # This script uses the exactextractr package to extract means using weighted averages
 # based on the percentage of each pixel that the census tract covers.
 # Using the exactextractr method is faster and more accurate than similar packages (rasterstats for Python).
