@@ -10,7 +10,7 @@
 # "1" indicates days with a mean heat index over over the "Caution" threshold (80 degrees F)
 
 # Detailed Heat Index File: CSV containing detailed daily string data by census tract based on levels defined here: https://www.weather.gov/ama/heatindex.
-# Levels are: ['Safe', 'Caution', 'Extreme_Caution', 'Extreme_Danger']
+# Levels are: ['Safe', 'Caution', 'Extreme_Caution', 'Danger', 'Extreme_Danger']
 
 # *Column headers in the CSVs indicate tract GEOIDs to differentiate multipart tracts, where a tract may be split and
 # located in two different geographic areas. In this case, there is a unique GEOID for each part of the tract.
